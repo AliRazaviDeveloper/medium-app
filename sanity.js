@@ -1,3 +1,6 @@
+import imageUrlBuilder from "@sanity/image-url";
+import { createClient, createCurrentUserHook } from "next-sanity";
+
 export const config = {
   /**
    * Find your project ID and dataset in `sanity.json` in your studio project.
@@ -16,3 +19,7 @@ export const config = {
    **/
   useCdn: process.env.NODE_ENV === "production",
 };
+
+export const sanityClient = createClient(config);
+export const urlFor = (source) => imageUrlBuilder(config).image(source);
+export const userCurrentUser = createCurrentUserHook(config);
